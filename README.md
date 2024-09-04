@@ -2,4 +2,4 @@
 
 Deployed website: https://iwg-mk1.github.io/pui-hw-iwg
 
-Repository link: `add the URL to this repository`
+Repository link: https://github.com/iwg-mk1/pui-hw-iwg
