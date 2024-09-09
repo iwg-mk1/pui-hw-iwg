@@ -7,10 +7,15 @@ main {
 
 nav {
     text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 div.selected-page {
+
     background-color: yellow;
     font-weight: bold;
+    width: fit-content;
 }
 
 h1 {
@@ -42,10 +47,21 @@ a {
 
 .gallery .product {
     padding: 10px;
+    text-decoration: underline;
 }
 
 .cart .product {
     padding: 10px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.cart .product p {
+    text-align: center;
+    margin-bottom: 70px;
 }
 
 .cart .img-box {
@@ -57,6 +73,13 @@ a {
 .cart img {
     width: 200px;
     height: 200px;
+}
+
+.cart .product .remove p {
+    font-size: 14pt;
+    text-decoration: underline;
+    margin-bottom: 0px;
+    font-weight: bold;
 }
 
 
@@ -124,4 +147,32 @@ label {
     border: 5px solid black;
     text-align: center;
     width: 225px;
+}
+
+.total-checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.total-checkout .checkout {
+    background-color: yellow;
+    font-weight: bold;
+    border: 5px solid black;
+    text-align: center;
+    width: 200px;
+    
+}
+.total-checkout .checkout p {
+    text-align: center;
+    margin: 10px;
+}
+
+hr {
+    border-width: 3px;
+    border-color: black;
+}
+
+.bottom-line hr {
+    width: 50%;
 }
