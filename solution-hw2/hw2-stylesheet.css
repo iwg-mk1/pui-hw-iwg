@@ -1,0 +1,179 @@
+main {
+    font-size: 35px;
+    text-align: center;
+    margin: auto;
+}
+
+nav {
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.selected-page {
+
+    background-color: yellow;
+    font-weight: bold;
+    width: fit-content;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 100;
+}
+
+p {
+    text-align: left;
+    margin-top: 5px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery .product {
+    padding: 10px;
+    text-decoration: underline;
+}
+
+.cart .product {
+    padding: 10px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.cart .product p {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.cart .img-box {
+    width: 200px;
+    height: 200px;
+    border: 5px solid black;
+}
+
+.cart img {
+    width: 200px;
+    height: 200px;
+}
+
+.cart .product .remove p {
+    font-size: 14pt;
+    text-decoration: underline;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+
+.detail-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-section p {
+    text-align: left;
+    width: 400px;
+
+}
+
+select {
+    font-size: 35px;
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+label {
+    width: 400px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.img-box {
+    width: 400px;
+    height: 400px;
+    border: 5px solid black;
+}
+
+.img-box-detail {
+    width: 600px;
+    height: 600px;
+    border: 5px solid black;
+    margin-bottom: 20px;
+}
+
+.logo {
+    border: 0px;
+}
+
+.gallery .product:hover {
+
+    background-color: yellow;
+    font-weight: bold;
+
+}
+
+.detail-section .end-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    font-weight: bold;
+    text-align: center;
+    width: 400px;
+}
+
+.detail-section .add-to-cart p {
+    background-color: yellow;
+    border: 5px solid black;
+    text-align: center;
+    width: 225px;
+}
+
+.total-checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.total-checkout .checkout {
+    background-color: yellow;
+    font-weight: bold;
+    border: 5px solid black;
+    text-align: center;
+    width: 200px;
+
+}
+
+.total-checkout .checkout p {
+    text-align: center;
+    margin: 10px;
+}
+
+hr {
+    border-width: 3px;
+    border-color: black;
+}
+
+.bottom-line hr {
+    width: 50%;
+}
