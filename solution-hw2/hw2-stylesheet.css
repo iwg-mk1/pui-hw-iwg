@@ -1,26 +1,44 @@
 main {
-    font-size: 35px;
+    font-size: 30px;
     text-align: center;
     margin: auto;
+    font-family: Helvetica, Arial, sans-serif;
+    
 }
 
+
+.heading {
+    display: flex;
+    flex-direction: row;
+}
+.heading .heading-right {
+    flex-grow: 1;
+}
 nav {
     text-transform: uppercase;
+    height: 100px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
+    gap: 100px;
+    padding-right: 100px;
 }
 
-div.selected-page {
+
+.selected-page {
 
     background-color: yellow;
     font-weight: bold;
     width: fit-content;
+    height: fit-content;
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 100;
+    text-align: left;
+    padding: 40px;
 }
 
 p {
@@ -35,33 +53,44 @@ a {
 
 .gallery {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 1000px;
+    margin: auto;
 }
 
 .cart {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .gallery .product {
     padding: 10px;
     text-decoration: underline;
-}
-
-.cart .product {
-    padding: 10px;
-    width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 285px;
+}
 
+.cart .product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
+    justify-content: space-between;
+    gap: 20px;
+    flex-basis: 0;
 }
 
 .cart .product p {
-    text-align: center;
+    text-align: left;
     margin-bottom: 70px;
+    line-height: 2;
 }
 
 .cart .img-box {
@@ -85,8 +114,14 @@ a {
 
 .detail-section {
     display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: center;
+}
+
+.detail-right {
+    display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .detail-section p {
@@ -109,8 +144,8 @@ label {
 }
 
 .img-box {
-    width: 400px;
-    height: 400px;
+    width: 285px;
+    height: 285px;
     border: 5px solid black;
 }
 
@@ -120,6 +155,7 @@ label {
     border: 5px solid black;
     margin-bottom: 20px;
 }
+
 
 .logo {
     border: 0px;
@@ -140,6 +176,7 @@ label {
     font-weight: bold;
     text-align: center;
     width: 400px;
+    padding-top: 70px;
 }
 
 .detail-section .add-to-cart p {
@@ -175,5 +212,5 @@ hr {
 }
 
 .bottom-line hr {
-    width: 50%;
+    width: 70%;
 }
