@@ -84,7 +84,6 @@ a {
     width: 70%;
     justify-content: space-between;
     gap: 20px;
-    flex-basis: 0;
 }
 
 .cart .product p {
@@ -109,6 +108,12 @@ a {
     text-decoration: underline;
     margin-bottom: 0px;
     font-weight: bold;
+}
+
+.cart .product .product-left {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 
@@ -189,7 +194,14 @@ label {
 .total-checkout {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
+}
+.total-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+    margin-right: 15%;
 }
 
 .total-checkout .checkout {
@@ -198,6 +210,7 @@ label {
     border: 5px solid black;
     text-align: center;
     width: 200px;
+    margin-right: 15%;
 
 }
 
