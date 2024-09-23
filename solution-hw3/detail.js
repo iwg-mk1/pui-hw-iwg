@@ -45,22 +45,19 @@ let packSizes = [
 ];
 
 function updateTotal() {
-    curSelection.total = (basePrice + curSelection.glazingPrice) * curSelection.packPrice;
-
-    console.log(basePrice);
-    console.log(curSelection.glazingPrice);
-    console.log(curSelection.packPrice);
-
+    curSelection.total = ((basePrice + curSelection.glazingPrice) * curSelection.packPrice).toFixed(2);
     document.getElementById("detail-price").textContent = curSelection.total.toString();
 }
 
 function glazingChange(element) {
-    curSelection.glazingPrice = element.value;
+    curSelection.glazingPrice = parseFloat(element.value);
+    console.log(curSelection.glazingPrice);
     updateTotal();
 }
 
 function packChange(element) {
-    curSelection.packPrice = element.value;
+    curSelection.packPrice = parseFloat(element.value);
+    console.log(curSelection.packPrice);
     updateTotal();
 }
 
@@ -70,8 +67,8 @@ let selectPackSize = document.querySelector('#pack-size');
 
 
 for (let i = 0; i < glazingPrices.length; i++) {
-    var option = document.createElement('option');
-    option.label = glazingPrices[i].glaze
+    let option = document.createElement('option');
+    option.text = glazingPrices[i].glaze
     option.value = glazingPrices[i].priceAdp;
 
     selectGlaze.add(option);
@@ -79,16 +76,17 @@ for (let i = 0; i < glazingPrices.length; i++) {
 
 for (let i = 0; i < packSizes.length; i++) {
     var option = document.createElement('option');
-    option.label = packSizes[i].size;
+    option.text = packSizes[i].size;
     option.value = packSizes[i].priceAdp;
 
     selectPackSize.add(option);
 }
 
+/*
 
 selectGlaze.addEventListener('change', glazingChange);
 selectPackSize.addEventListener('change', packChange);
-
+*/
 document.getElementById("detail-price").textContent = curSelection.total.toString();
 
 
