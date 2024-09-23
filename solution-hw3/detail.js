@@ -46,7 +46,7 @@ let packSizes = [
 
 function updateTotal() {
     curSelection.total = ((basePrice + curSelection.glazingPrice) * curSelection.packPrice).toFixed(2);
-    document.getElementById("detail-price").textContent = curSelection.total.toString();
+    document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
 }
 
 function glazingChange(element) {
@@ -82,11 +82,6 @@ for (let i = 0; i < packSizes.length; i++) {
     selectPackSize.add(option);
 }
 
-/*
-
-selectGlaze.addEventListener('change', glazingChange);
-selectPackSize.addEventListener('change', packChange);
-*/
-document.getElementById("detail-price").textContent = curSelection.total.toString();
+document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
 
 
