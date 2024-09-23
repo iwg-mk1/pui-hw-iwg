@@ -46,17 +46,21 @@ let packSizes = [
 
 function updateTotal() {
     curSelection.total = (basePrice + curSelection.glazingPrice) * curSelection.packPrice;
-    let totalElement = document.querySelector('#detail-price');
-    totalElement.innerText = curSelection.total;
+
+    console.log(basePrice);
+    console.log(curSelection.glazingPrice);
+    console.log(curSelection.packPrice);
+
+    document.getElementById("detail-price").textContent = curSelection.total.toString();
 }
 
 function glazingChange(element) {
-    curSelection.glazingPrice = element.priceAdp;
+    curSelection.glazingPrice = element.value;
     updateTotal();
 }
 
 function packChange(element) {
-    curSelection.glazingPrice = element.priceAdp;
+    curSelection.packPrice = element.value;
     updateTotal();
 }
 
@@ -64,31 +68,27 @@ function packChange(element) {
 let selectGlaze = document.querySelector('#glazing');
 let selectPackSize = document.querySelector('#pack-size');
 
-/*
-for(element in glazingPrices)
-    {
-       var option = document.createElement('option');
-       option.value = index;
-       option.text = glazingPrices.glaze;
-    
-       selectGlazing.add(option);
-       index++;
-    }
-       */
 
-    for(let i = 0; i < glazingPrices.length; i++) {
-        var option = document.createElement('option');
-        option.value = i;
-        option.text = glazingPrices.glaze;
-        
-        selectGlazing.add(option);
-    }
+for (let i = 0; i < glazingPrices.length; i++) {
+    var option = document.createElement('option');
+    option.label = glazingPrices[i].glaze
+    option.value = glazingPrices[i].priceAdp;
+
+    selectGlaze.add(option);
+}
+
+for (let i = 0; i < packSizes.length; i++) {
+    var option = document.createElement('option');
+    option.label = packSizes[i].size;
+    option.value = packSizes[i].priceAdp;
+
+    selectPackSize.add(option);
+}
 
 
 selectGlaze.addEventListener('change', glazingChange);
 selectPackSize.addEventListener('change', packChange);
 
-
-document.getElementById("detail-price").textContent = "New text!";
+document.getElementById("detail-price").textContent = curSelection.total.toString();
 
 
