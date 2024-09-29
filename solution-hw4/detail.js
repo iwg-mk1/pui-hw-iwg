@@ -20,7 +20,6 @@ let curSelection = {
     total: basePrice,
     glazingPrice: 0,
     packPrice: 1,
-    glazingType: 'Keep original'
 };
 
 let glazingPrices = [
@@ -68,14 +67,11 @@ function updateTotal() {
 
 function glazingChange(element) {
     curSelection.glazingPrice = parseFloat(element.value);
-    curSelection.glazingType = element.text;
-    console.log(curSelection.glazingPrice);
     updateTotal();
 }
 
 function packChange(element) {
     curSelection.packPrice = parseFloat(element.value);
-    console.log(curSelection.packPrice);
     updateTotal();
 }
 
@@ -86,9 +82,8 @@ let selectPackSize = document.querySelector('#pack-size');
 
 for (let i = 0; i < glazingPrices.length; i++) {
     let option = document.createElement('option');
-    option.text = glazingPrices[i].glaze;
+    option.textContent = glazingPrices[i].glaze;
     option.value = glazingPrices[i].priceAdp;
-
     selectGlaze.add(option);
 }
 
@@ -96,7 +91,6 @@ for (let i = 0; i < packSizes.length; i++) {
     var option = document.createElement('option');
     option.text = packSizes[i].size;
     option.value = packSizes[i].priceAdp;
-
     selectPackSize.add(option);
 }
 
@@ -117,7 +111,9 @@ class Roll {
 const cart = [];
 
 function pushCart() {
-    cart.push(new Roll(rollType, curSelection.glazingType, curSelection.packSize, basePrice));
+    const e = document.getElementById('glazing');
+    const rollGlazing = e.options[e.selectedIndex].text;
+    cart.push(new Roll(rollType, rollGlazing, curSelection.packSize, basePrice));
     console.log(cart);
 }
 
