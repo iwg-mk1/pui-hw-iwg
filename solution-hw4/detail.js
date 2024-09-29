@@ -2,21 +2,25 @@ const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const rollType = params.get('roll');
 
-const rollName = document.createElement('H1'); 
-rollName.innerHTML = rollType + "cinnamon roll";
-document.body.main.heading.appendChild(rollName);
+const rollName = rollType + " cinnamon roll";
+document.getElementById('roll-name').textContent = rollName;
+
+let rollImg = document.createElement('img');
+rollImg.src = '../assets/products/' + rolls[rollType].imageFile;
+rollImg.width = '600';
+rollImg.alt = 'Picture of ' + rollName;
+document.getElementById('roll-img').appendChild(rollImg);
 
 
+//Price calculations
 
-
-//-----------------------------------------///
-
-const basePrice = 2.49;
+const basePrice = rolls[rollType].basePrice;
 
 let curSelection = {
     total: basePrice,
     glazingPrice: 0,
-    packPrice: 1
+    packPrice: 1,
+    glazingType: 'Keep original'
 };
 
 let glazingPrices = [
@@ -64,6 +68,7 @@ function updateTotal() {
 
 function glazingChange(element) {
     curSelection.glazingPrice = parseFloat(element.value);
+    curSelection.glazingType = element.text;
     console.log(curSelection.glazingPrice);
     updateTotal();
 }
@@ -81,7 +86,7 @@ let selectPackSize = document.querySelector('#pack-size');
 
 for (let i = 0; i < glazingPrices.length; i++) {
     let option = document.createElement('option');
-    option.text = glazingPrices[i].glaze
+    option.text = glazingPrices[i].glaze;
     option.value = glazingPrices[i].priceAdp;
 
     selectGlaze.add(option);
@@ -96,5 +101,28 @@ for (let i = 0; i < packSizes.length; i++) {
 }
 
 document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
+
+
+//Cart handeling
+
+class Roll {
+    constructor(rollType, rollGlazing, packSize, basePrice) {
+        this.type = rollType;
+        this.glazing =  rollGlazing;
+        this.size = packSize;
+        this.basePrice = basePrice;
+    }
+}
+
+const cart = [];
+
+function pushCart() {
+    cart.push(new Roll(rollType, curSelection.glazingType, curSelection.packSize, basePrice));
+    console.log(cart);
+}
+
+document.getElementById('cart-button').addEventListener('click', pushCart);
+
+
 
 
