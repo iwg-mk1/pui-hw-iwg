@@ -102,7 +102,7 @@ document.getElementById("detail-price").textContent = "$" + curSelection.total.t
 class Roll {
     constructor(rollType, rollGlazing, packSize, basePrice) {
         this.type = rollType;
-        this.glazing =  rollGlazing;
+        this.glazing = rollGlazing;
         this.size = packSize;
         this.basePrice = basePrice;
     }
@@ -111,9 +111,13 @@ class Roll {
 const cart = [];
 
 function pushCart() {
-    const e = document.getElementById('glazing');
-    const rollGlazing = e.options[e.selectedIndex].text;
-    cart.push(new Roll(rollType, rollGlazing, curSelection.packSize, basePrice));
+    const e1 = document.getElementById('glazing');
+    const rollGlazing = e1.options[e1.selectedIndex].text;
+
+    const e2 = document.getElementById('pack-size');
+    const packSize = parseInt(e2.options[e2.selectedIndex].text);
+
+    cart.push(new Roll(rollType, rollGlazing, packSize, basePrice));
     console.log(cart);
 }
 
