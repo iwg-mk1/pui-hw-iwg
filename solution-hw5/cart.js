@@ -1,5 +1,5 @@
 //Price calculations
-
+basePrice = 50000;
 let curSelection = {
     total: basePrice,
     glazingPrice: 0,
@@ -59,7 +59,7 @@ function packChange(element) {
     updateTotal();
 }
 
-document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
+//document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
 
 
 //Cart handeling
@@ -80,31 +80,46 @@ cart.push(new Roll('Walnut', 'Vanilla Milk', 12, 3.49));
 cart.push(new Roll('Raisin', 'Sugar Milk', 3, 2.99));
 cart.push(new Roll('Apple', 'Original', 3, 3.49));
 
+
 function addPacks() {
     for (const pack of cart) {
-        const productWrapper = document.createElement();
-        productWrapper.outerHtml = 
-        '<div class="product">' +
+        console.log(pack);
+        const productWrapper = document.createElement('div');
+        productWrapper.classList.add('product');
+        document.querySelector('.cart').appendChild(productWrapper);
+        
+        productWrapper.innerHTML = 
+        //'<div class="product">' +
             '<div class="product-left">' +
                 '<div class="product-img-remove">' +
                     '<div class="img-box">' +
                     '</div>' + 
-                   '<div class="remove">' + 
-                '<p>Remove</p>' +
-            '</div>' +
-            '</div>' +
-                '<p id="pRollName"></p>' +
-                '<p id="pGlazing"></p>' +
-                '<p id="pPackSize"></p>' +
+                    '<div class="remove">' + 
+                        '<p>Remove</p>' +
+                    '</div>' +
+                '</div>' +
+                '<p id="rollType"></p>' +
+                '<p id="glazing"></p>' +
+                '<p id="packSize"></p>' +
             '</div>' + 
-            '<p>$ 2.49</p> ' +
-        '</div>';
+            '<p>$ 2.49</p> ';// +
+        //'</div>';
 
-        document.querySelector('cart').appendChild(productWrapper);
+
+        const rollImg = document.createElement('img');
+        rollImg.src = '../assets/products/' + rolls[pack.type].imageFile;
+        rollImg.width = '200';
+        rollImg.alt = 'Picture of ' + rolls[pack.type];
+        console.log(productWrapper.querySelector('.img-box'));
+        productWrapper.querySelector('.img-box').appendChild(rollImg);
+        document.productWrapper.querySelector('#rollType').text = pack.type;
+        document.productWrapper.querySelector('#glazing').text = 'Glazing: ' + pack.glazing;
+        document.productWrapper.querySelector('#packSize').text = 'Pack Size: ' + pack.size;
 
     }
 }
 
+addPacks();
 
 /*
 <div class="product">

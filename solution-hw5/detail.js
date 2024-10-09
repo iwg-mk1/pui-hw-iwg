@@ -5,7 +5,7 @@ const rollType = params.get('roll');
 const rollName = rollType + " cinnamon roll";
 document.getElementById('roll-name').textContent = rollName;
 
-let rollImg = document.createElement('img');
+const rollImg = document.createElement('img');
 rollImg.src = '../assets/products/' + rolls[rollType].imageFile;
 rollImg.width = '600';
 rollImg.alt = 'Picture of ' + rollName;
