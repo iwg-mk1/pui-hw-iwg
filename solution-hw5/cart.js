@@ -23,7 +23,7 @@ let packSizes = {
     6: {
         priceAdp: 5,
     },
-    12:{
+    12: {
         priceAdp: 10,
     }
 };
@@ -45,7 +45,7 @@ cart.push(new Roll('Apple', 'Original', 3, 3.49));
 
 //PARAMS: Takes in class Roll, returns price of that Roll.
 function packTotal(pack) {
-    return ((pack.basePrice  + glazingPrices[pack.glazing].priceAdp) * packSizes[pack.size].priceAdp).toFixed(2);
+    return ((pack.basePrice + glazingPrices[pack.glazing].priceAdp) * packSizes[pack.size].priceAdp).toFixed(2);
 }
 
 //Returns price of all items in the cart
@@ -57,7 +57,7 @@ function checkoutTotal(cart) {
     return acc.toFixed(2);
 }
 
-function removeItem (pack, productWrapper) {
+function removeItem(pack, productWrapper) {
     cart.splice(cart.indexOf(pack), 1);
     document.querySelector('.cart').removeChild(productWrapper);
     document.querySelector('#total-num').innerText = "$ " + checkoutTotal(cart);
@@ -70,8 +70,8 @@ function addPacks(cart) {
         const productWrapper = document.createElement('div');
         productWrapper.classList.add('product');
         document.querySelector('.cart').appendChild(productWrapper);
-        
-        productWrapper.innerHTML = 
+
+        productWrapper.innerHTML =
             '<div class="product-left">' +
                 '<div class="product-img-remove">' +
                     '<div class="img-box">' +
@@ -101,13 +101,9 @@ function addPacks(cart) {
         productWrapper.querySelector('#pack-price').innerText = '$ ' + packTotal(pack);
 
 
-        productWrapper.querySelector('.remove').addEventListener("click", function() {removeItem(pack, productWrapper)});
+        productWrapper.querySelector('.remove').addEventListener("click", function () { removeItem(pack, productWrapper) });
     }
 }
 
 addPacks(cart);
 document.querySelector('#total-num').innerText = "$ " + checkoutTotal(cart);
-
-
-
-

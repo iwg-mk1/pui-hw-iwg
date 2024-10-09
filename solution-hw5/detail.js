@@ -88,7 +88,7 @@ for (let i = 0; i < glazingPrices.length; i++) {
 }
 
 for (let i = 0; i < packSizes.length; i++) {
-    var option = document.createElement('option');
+    let option = document.createElement('option');
     option.text = packSizes[i].size;
     option.value = packSizes[i].priceAdp;
     selectPackSize.add(option);
