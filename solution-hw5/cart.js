@@ -1,68 +1,32 @@
-//Price calculations
-basePrice = 50000;
-let curSelection = {
-    total: basePrice,
-    glazingPrice: 0,
-    packPrice: 1,
-};
-
-let glazingPrices = [
-    {
-        glaze: 'Keep original',
+let glazingPrices = {
+    'Original': {
         priceAdp: 0,
     },
-    {
-        glaze: 'Sugar milk',
+    'Sugar milk': {
         priceAdp: 0,
     },
-    {
-        glaze: 'Vanilla milk',
+    'Vanilla milk': {
         priceAdp: 0.5,
     },
-    {
-        glaze: 'Double chocolate',
+    'Double chocolate': {
         priceAdp: 1.5,
     }
-];
+};
 
-let packSizes = [
-    {
-        size: 1,
+let packSizes = {
+    1: {
         priceAdp: 1,
     },
-    {
-        size: 3,
+    3: {
         priceAdp: 3,
     },
-    {
-        size: 6,
+    6: {
         priceAdp: 5,
     },
-    {
-        size: 12,
+    12:{
         priceAdp: 10,
     }
-];
-
-function updateTotal() {
-    curSelection.total = ((basePrice + curSelection.glazingPrice) * curSelection.packPrice).toFixed(2);
-    document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
-}
-
-function glazingChange(element) {
-    curSelection.glazingPrice = parseFloat(element.value);
-    updateTotal();
-}
-
-function packChange(element) {
-    curSelection.packPrice = parseFloat(element.value);
-    updateTotal();
-}
-
-//document.getElementById("detail-price").textContent = "$" + curSelection.total.toString();
-
-
-//Cart handeling
+};
 
 class Roll {
     constructor(rollType, rollGlazing, packSize, basePrice) {
@@ -74,22 +38,40 @@ class Roll {
 }
 
 const cart = [];
-
-cart.push(new Roll('Original', 'Sugar Milk', 1, 2.49));
-cart.push(new Roll('Walnut', 'Vanilla Milk', 12, 3.49));
-cart.push(new Roll('Raisin', 'Sugar Milk', 3, 2.99));
+cart.push(new Roll('Original', 'Sugar milk', 1, 2.49));
+cart.push(new Roll('Walnut', 'Vanilla milk', 12, 3.49));
+cart.push(new Roll('Raisin', 'Sugar milk', 3, 2.99));
 cart.push(new Roll('Apple', 'Original', 3, 3.49));
 
+//PARAMS: Takes in class Roll, returns price of that Roll.
+function packTotal(pack) {
+    return ((pack.basePrice  + glazingPrices[pack.glazing].priceAdp) * packSizes[pack.size].priceAdp).toFixed(2);
+}
 
-function addPacks() {
+//Returns price of all items in the cart
+function checkoutTotal(cart) {
+    let acc = 0;
     for (const pack of cart) {
-        console.log(pack);
+        acc += Number(packTotal(pack));
+    }
+    return acc.toFixed(2);
+}
+
+function removeItem (pack, productWrapper) {
+    cart.splice(cart.indexOf(pack), 1);
+    document.querySelector('.cart').removeChild(productWrapper);
+    document.querySelector('#total-num').innerText = "$ " + checkoutTotal(cart);
+    console.log(cart);
+}
+
+//Populates the page with products
+function addPacks(cart) {
+    for (const pack of cart) {
         const productWrapper = document.createElement('div');
         productWrapper.classList.add('product');
         document.querySelector('.cart').appendChild(productWrapper);
         
         productWrapper.innerHTML = 
-        //'<div class="product">' +
             '<div class="product-left">' +
                 '<div class="product-img-remove">' +
                     '<div class="img-box">' +
@@ -98,46 +80,34 @@ function addPacks() {
                         '<p>Remove</p>' +
                     '</div>' +
                 '</div>' +
-                '<p id="rollType"></p>' +
-                '<p id="glazing"></p>' +
-                '<p id="packSize"></p>' +
+                '<div class="pack-info">' +
+                    '<p id="roll-type"></p>' +
+                    '<p id="glazing"></p>' +
+                    '<p id="pack-size"></p>' +
+                '</div>' +
             '</div>' + 
-            '<p>$ 2.49</p> ';// +
-        //'</div>';
+            '<p id="pack-price"></p> ';
 
 
         const rollImg = document.createElement('img');
         rollImg.src = '../assets/products/' + rolls[pack.type].imageFile;
         rollImg.width = '200';
         rollImg.alt = 'Picture of ' + rolls[pack.type];
-        console.log(productWrapper.querySelector('.img-box'));
         productWrapper.querySelector('.img-box').appendChild(rollImg);
-        document.productWrapper.querySelector('#rollType').text = pack.type;
-        document.productWrapper.querySelector('#glazing').text = 'Glazing: ' + pack.glazing;
-        document.productWrapper.querySelector('#packSize').text = 'Pack Size: ' + pack.size;
 
+        productWrapper.querySelector('#roll-type').innerText = pack.type + ' cinnamon roll.';
+        productWrapper.querySelector('#glazing').innerText = 'Glazing: ' + pack.glazing;
+        productWrapper.querySelector('#pack-size').innerText = 'Pack Size: ' + pack.size;
+        productWrapper.querySelector('#pack-price').innerText = '$ ' + packTotal(pack);
+
+
+        productWrapper.querySelector('.remove').addEventListener("click", function() {removeItem(pack, productWrapper)});
     }
 }
 
-addPacks();
+addPacks(cart);
+document.querySelector('#total-num').innerText = "$ " + checkoutTotal(cart);
 
-/*
-<div class="product">
-    <div class="product-left">
-        <div class="product-img-remove">
-            <div class="img-box">
-              <img src="../assets/products/original-cinnamon-roll.jpg" width="200"
-                alt="Picture of original cinnamon roll" />
-            </div>
-            <div class="remove">
-              <p>Remove</p>
-            </div>
-          </div>
-          <p>Original cinnamon roll. <br> Glazing: Keep original <br> Pack Size: 1</p>
-        </div>
-        <p>$ 2.49</p> 
-      </div>
-*/
 
 
 
