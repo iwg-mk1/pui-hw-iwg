@@ -114,8 +114,6 @@ class Roll {
     }
 }
 
-//const cart = [];
-
 function pushCart() {
     const e1 = document.getElementById('glazing');
     const rollGlazing = e1.options[e1.selectedIndex].text;
@@ -125,7 +123,6 @@ function pushCart() {
 
     cart.push(new Roll(rollType, rollGlazing, packSize, basePrice));
     localStorage.setItem("cart", JSON.stringify(cart));
-    console.log(cart);
 }
 
 document.getElementById('cart-button').addEventListener('click', pushCart);
