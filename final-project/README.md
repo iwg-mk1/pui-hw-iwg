@@ -119,31 +119,72 @@ Remember to keep track of your prompts and usage for [FP4 writeup](#part-6-gener
 
 ## Project Description
 
-Briefly restate your motivation and a short description of your project.
+Mural Budgeter: A tool for figuring out how much paint to buy when painting a mural.
 
 ## High-Fi Prototypes
 
 ### *Prototype 1*
 
-![title for prototype1](images/prototype1.png)
+![desktop prototype](images/prototype1.png)
 
-A brief description and summary of the user feedback (\<100 words, 2 images) 
+Users upload a mockup image then input dimensions and add paint colors which are used
+to calulate the amount of paint needed for that mural. 
+Essentially users understood the tool after using it, however there were several points
+of initial confusion for both mobile and desktop designs. These points could be fixed 
+by changing some of the language and adding additional context clues where neccessary.
 
 ### *Prototype 2*
 
-…
+![mobile prototype](images/prototype2.png)
 
 ## Usability Test
 
-Discuss the user feedback you got during the evaluation / usability test (\~300 words). Indicate which feedback you implemented, inspired new directions, or otherwise influenced your final design. 
+
+The feedback can be synthesized into the following list:
+- Receipt is a misleading name for the card containing the amount of paint needed.
+- There should be a preview/info about what the app does on the home page.
+- Add clipboard or file export for paint tally.
+- Width/height is a bit too small small.
+- The fonts are a little inconsistent.
+
+The main problem I noticed from direct observation
+was that the users didn't understand what the tool did until after going through everything.
+Thus as I revised and continue to revise, I'm going to make sure to include as many context clues as I can
+to make the affordances understandable.
+
+
+All of the feedback was incredibly helpful as it highlighted the areas where the
+design was confusing. Thus I did the following to impliment the feedback:
+
+- Changed name of receipt.
+- Added info about what the app does on the home page since the process was initially confusing.
+- Added export for paint tally to create a sense of finality and remove the need to store files on the webpage.
+- Increased size of width/height boxes for additional clarity.
+- Homogenized fonts for more consistent design.
 
 ## Updated Designs
 
-Show screenshots of your updated design based on the user feedback (\<100 words, \~2 images).
+### *prototype 1 revised*
+
+![desktop prototype revised](images/prototype3.png)
+
+Revised prototypes from the above list. The overall structure is the same but additional context has been added and some of the language changed, as well as some visual tweaks.
+
+### *prototype 2 revised*
+
+![mobile prototype revised](images/prototype4.png)
 
 ## Feedback Summary
 
-Summarize the feedback you received in the lab session and discuss how it influenced your design (\~300 words). 
+Overall there was some confusion about "get paint required" and the idea of a paint receipt.
+While the language was less confusing than before, I might be able to add some additional context
+clues to inprove the understandibily to the design. The different desktop and mobile views also confused
+some because they thought I was making a mobile app. When presenting the mobile view in the future
+I should describe it as the "mobile/vertical view of the website." One good idea that was called
+to my attention was to add context popups that can help users make descisions. For example, 
+yellow spray paint generally does not cover as well as other colors and that could be called to attention.
+This idea of providing help and context info reactive to user input throughout the design will help users understand the
+complexities of their task without being obtrusive or overwhelming.
 
 ## Milestones
 
@@ -151,44 +192,32 @@ Outline weekly milestones to plan your expected implementation progress until th
 
 ### *Implementation Plan*
 
-- [ ] Week 9 Oct 28 \- Nov 1:
+- [x] Week 9 Oct 28 \- Nov 1:
   - [X] FP1 due
-  - [ ] ...
+  - [x] ...
   
-- [ ] Week 10 Nov 4 \- Nov 8:   
-  - [ ] FP2 due
+- [x] Week 10 Nov 4 \- Nov 8:   
+  - [x] FP2 due
 
-- [ ] Week 11 Nov 11 \- Nov 15:  
-- [ ] Week 12 Nov 18 \- Nov 22:   
-- [ ] Week 13 Nov 25 \- Nov 29:  
+- [ ] Week 11 Nov 11 \- Nov 15:  Finalize Design, import all libraries, get skeleton of site up.
+- [ ] Week 12 Nov 18 \- Nov 22:  Get paint counting algorithm working.
+- [ ] Week 13 Nov 25 \- Nov 29:  Get initial styling and formating done.
 
   - [ ] Thanksgiving  
-- [ ] Week 14 Dec 2 \- Dec 6:  
+- [ ] Week 14 Dec 2 \- Dec 6:  Finalize styling, fix any final bugs.
   - [ ] FP4 due 
 
 ### *Libraries and Other Components*
 
 List the JS libraries and other components (if applicable) that you plan to use. 
 * 
-
+- Mixbox for subtractive color mixing.
+- Dropzone for drag and drop.
+- image.js for image manipulation.
 
 ## Generative AI Use Plan
 
-Outline how you plan to use Generative AI tools to aid in the implementation (\~300 words).
-
-### *Tool Use*
-
- What would you use? Edit the list given your plan. For each tool, explain briefly on what do you expect Generative AI to help you with and what might it not be able to help you with.
-
-* ChatGPT  
-  * I will use it for … because it can help me …  
-  * I will not use it for … because it might not be able to help me with …   
-* GitHub Copilot  
-* ...
-
-### *Responsible Use*
-
-How would you use Generative AI responsibly? 
+I do not plan on using generative AI for this project.
 
 ---
 
