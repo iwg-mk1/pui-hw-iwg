@@ -213,7 +213,7 @@ List the JS libraries and other components (if applicable) that you plan to use.
 * 
 - Mixbox for subtractive color mixing.
 - Dropzone for drag and drop.
-- image.js for image manipulation.
+- p5.js for image manipulation.
 
 ## Generative AI Use Plan
 
