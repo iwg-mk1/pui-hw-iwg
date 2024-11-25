@@ -1,12 +1,26 @@
 let imgInput, img, img2;
-let reds = [], greens = [], blues = [], alphas = [], newColor;
-let tileSize = 20;
+let newColor;
+//let tileSize = 20;
+let selectedColors = [];
+
+
+
 
 //Shoutout to this guy for saving my code after three days of debugging: https://stackoverflow.com/questions/75402819/how-do-i-load-pixels-from-uploaded-image-file-in-p5js
 
 
 function setup() {
   createCanvas(400, 400);
+  selectedColors[0] = color(232, 33, 19);
+  selectedColors[1] = color(35, 66, 91);
+  selectedColors[2] = color(200, 188, 92);
+  selectedColors[3] = color(0, 33, 19);
+  selectedColors[4] = color(200, 221, 221);
+  selectedColors[5] = color(100, 188, 100);
+  selectedColors[6] = color(200, 188, 188);
+  selectedColors[7] = color(134, 191, 227);
+  selectedColors[8] = color(227, 204, 134);
+  selectedColors[9] = color(58, 181, 89);
   
   //creates input box for image
   imgInput = createFileInput(handleFile);
@@ -26,6 +40,8 @@ function draw() {
     //image(img, 0, 0, width, height);
     image(img, 0, 0, img.width  * scaleRatio, img.height  * scaleRatio);
     //img.filter(INVERT); //this will make the code strobe
+    //getPrev();
+
     image(img2, 0, img.height * scaleRatio, img.width * scaleRatio, img.height * scaleRatio);
   } else {
     background(255);
@@ -44,7 +60,8 @@ function handleFile(file) {
     img2 = createImg(file.data, '');
     img2.hide();
     img2 = loadImage(imgSrc, handleImg2);
-    
+    //getPrev();
+    //img2.filter(INVERT);
 
   } else {
     img = null;
@@ -57,94 +74,54 @@ function handleFile(file) {
 function storeImgValues() {
   img.loadPixels();
   //img.filter(INVERT);
-  
-  let pixel = 0;
-  for (let l = 0; l < img.pixels.length; l += 4) {
-    reds[pixel] = img.pixels[l];
-    greens[pixel] = img.pixels[l+1];
-    blues[pixel] = img.pixels[l+2];
-    alphas[pixel] = img.pixels[l+3];
-  }
 }
 
 function handleImg2() {
   img2.loadPixels();
-  img2.filter(INVERT);
+  getPrev();
+  //img2.updatePixels();
+  //img2.filter(INVERT);
 }
 
+//image transformation function:
+function getPrev() {
+  
+  for (let i = 0; i < img2.pixels.length; i += 4) {
+    let c = closestColor(img2.pixels[i], img2.pixels[i+1], img2.pixels[i+2]);
+    //let c = color(0, 255, 0);
 
-
-/*
-
-let input;
-let img;
-let preview;
-
-function setup() {
-  createCanvas(100, 100);
-
-  // Create a file input and place it beneath
-  // the canvas.
-  input = createFileInput(handleImage);
-  input.position(0, 0);
-
-  describe('A gray square with a file input beneath it. If the user selects an image file to load, it is displayed on the square.');
-}
-
-function draw() {
-  background(200);
-
-  // Draw the image if loaded.
-  if (img) {
-    img && image(img, width >> 1, height >> 1);
-//img.loadPixels();
-    let scaleRatio = windowWidth / img.width / 2;
-
-    resizeCanvas(img.width * scaleRatio, img.height * scaleRatio * 2);
-    image(img, 0, 0, img.width  * scaleRatio, img.height  * scaleRatio);
-    
-    /*for (let i = 0; i < img.width; i ++) {
-      img.pixels[i] = img.pixels[i + 1];
-      img.pixels[i + 1] = img.pixels[i + 2];
-      img.pixels[i + 2] = img.pixels[i + 3];
-    }*/
-
-    //img.filter(INVERT);
-    //updateImage();
-//    image(img, 0, img.height * scaleRatio, img.width * scaleRatio, img.height * scaleRatio);
-//  }
-//}
-
-/*
-function updateImage() {
-  preview = img;
-  preview.filter(INVERT);
-
-}*/
-
-/*
-// Create an image if the file is an image.
-function handleImage(file) {
-  if (file.type === 'image') {
-    img = createImg(file.data, '');
-    //console.log(img.type);
-    img.hide();
-    
-    //preload();
-    img.loadPixels();
-    img.filter(INVERT);
-    
-
-    
-    
-  } else {
-    img = null;
+    img2.pixels[i] = red(c);
+    img2.pixels[i+1] = blue(c);
+    img2.pixels[i+2] = green(c);
+    //img2.pixels[i] = 255;
+    //img2.pixels[i+1] = 0;
+    //img2.pixels[i+2] = 0;
   }
+  img2.updatePixels();
+  console.log("hey");
+
 }
 
+function closestColor(r, g, b) {
+  //colorMode(RGB);
+  
+  let c = color(r, g, b);
+  //colorMode(HSL);
 
-/*
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
-  <script defer src="https://scrtwpns.com/mixbox.js"></script>
-*/
+  let closest = selectedColors[0];
+
+  for (let i = 1; i < selectedColors.length; i++) {
+    let cur = selectedColors[i];
+    if (vectorLength(hue(c) - hue(cur), saturation(c) - saturation(cur), lightness(c) - lightness(cur)) < vectorLength(hue(c) - hue(closest), saturation(c) - saturation(closest), lightness(c) - lightness(closest) )) {
+      closest = cur;
+    }
+  }
+  //colorMode(RGB);
+  return closest;
+  
+}
+
+function vectorLength(x, y, z) {
+  return Math.sqrt(x*x*120 + y*y*4 + z*z*4);
+}
+
