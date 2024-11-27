@@ -11,16 +11,17 @@ let selectedColors = [];
 
 function setup() {
   createCanvas(400, 400);
-  selectedColors[0] = color(232, 33, 19);
-  selectedColors[1] = color(35, 66, 91);
-  selectedColors[2] = color(200, 188, 92);
-  selectedColors[3] = color(0, 33, 19);
-  selectedColors[4] = color(200, 221, 221);
-  selectedColors[5] = color(100, 188, 100);
-  selectedColors[6] = color(200, 188, 188);
-  selectedColors[7] = color(134, 191, 227);
-  selectedColors[8] = color(227, 204, 134);
-  selectedColors[9] = color(58, 181, 89);
+  selectedColors.push(color(35, 66, 91));
+  selectedColors.push(color(0, 33, 19));
+  selectedColors.push(color(200, 221, 221));
+  selectedColors.push(color(100, 188, 100));
+  selectedColors.push(color(64, 45, 30));
+  selectedColors.push(color(134, 191, 227));
+  selectedColors.push(color(227, 204, 134));
+  selectedColors.push(color(58, 181, 89));
+  selectedColors.push(color(232, 222, 176));
+  selectedColors.push(color(156, 88, 28));
+  
   
   //creates input box for image
   imgInput = createFileInput(handleFile);
@@ -72,12 +73,13 @@ function handleFile(file) {
 
 //all pixels are stored in lists
 function storeImgValues() {
+  img.resize(window.width / 2, 0);
   img.loadPixels();
   //img.filter(INVERT);
 }
 
 function handleImg2() {
-  img2.loadPixels();
+  img2.loadPixels(window.width / 2, 0);
   getPrev();
   //img2.updatePixels();
   //img2.filter(INVERT);
@@ -91,8 +93,8 @@ function getPrev() {
     //let c = color(0, 255, 0);
 
     img2.pixels[i] = red(c);
-    img2.pixels[i+1] = blue(c);
-    img2.pixels[i+2] = green(c);
+    img2.pixels[i+1] = green(c);
+    img2.pixels[i+2] = blue(c);
     //img2.pixels[i] = 255;
     //img2.pixels[i+1] = 0;
     //img2.pixels[i+2] = 0;
@@ -112,8 +114,9 @@ function closestColor(r, g, b) {
 
   for (let i = 1; i < selectedColors.length; i++) {
     let cur = selectedColors[i];
-    if (vectorLength(hue(c) - hue(cur), saturation(c) - saturation(cur), lightness(c) - lightness(cur)) < vectorLength(hue(c) - hue(closest), saturation(c) - saturation(closest), lightness(c) - lightness(closest) )) {
-      closest = cur;
+    //if (vectorLength(hue(c) - hue(cur), saturation(c) - saturation(cur), lightness(c) - lightness(cur)) < vectorLength(hue(c) - hue(closest), saturation(c) - saturation(closest), lightness(c) - lightness(closest) )) {
+      if (colorDistance(c, cur) < colorDistance(c, closest)) {
+    closest = cur;
     }
   }
   //colorMode(RGB);
@@ -122,6 +125,33 @@ function closestColor(r, g, b) {
 }
 
 function vectorLength(x, y, z) {
-  return Math.sqrt(x*x*120 + y*y*4 + z*z*4);
+  return Math.sqrt(x*x*16 + y*y + z*z);
 }
 
+
+let red1, red2, rmean, r1, g1, b1;
+//Code adapted from https://stackoverflow.com/questions/6334311/whats-the-best-way-to-round-a-color-object-to-the-nearest-color-constant
+function colorDistance(c1, c2)
+{
+    red1 = red(c1);
+    red2 = red(c2);
+    rmean = (red1 + red2) >> 1;
+    r1 = red1 - red2;
+    g1 = green(c1) - green(c2);
+    b1 = blue(c1) - blue(c2);
+    return Math.sqrt((((512+rmean)*r1*r1)>>8) + 4*g1*g1 + (((767-rmean)*b1*b1)>>8));
+}
+
+
+/*
+function colorDistance(c1, c2)
+{
+    let red1 = red(c1);
+    let red2 = red(c2);
+    let rmean = (red1 + red2) >> 1;
+    let r = red1 - red2;
+    let g = green(c1) - green(c2);
+    let b = blue(c1) - blue(c2);
+    return Math.sqrt((((512+rmean)*r*r)>>8) + 4*g*g + (((767-rmean)*b*b)>>8));
+}
+*/
