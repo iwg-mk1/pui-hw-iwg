@@ -10,7 +10,7 @@ let selectedColors = [];
 
 
 function setup() {
-  createCanvas(400, 400);
+  //createCanvas(400, 400);
   selectedColors.push(color(35, 66, 91));
   selectedColors.push(color(0, 33, 19));
   selectedColors.push(color(200, 221, 221));
@@ -22,6 +22,31 @@ function setup() {
   selectedColors.push(color(232, 222, 176));
   selectedColors.push(color(156, 88, 28));
   
+  let fragSrc = `precision highp float;
+
+  // x,y coordinates, given from the vertex shader
+  varying vec2 vTexCoord;
+
+  // the canvas contents, given from filter()
+  uniform sampler2D tex0;
+  // other useful information from the canvas
+  uniform vec2 texelSize;
+  uniform vec2 canvasSize;
+  // a custom variable from this sketch
+  uniform float darkness;
+
+  void main() {
+    // get the color at current pixel
+    vec4 color = texture2D(tex0, vTexCoord);
+    // set the output color
+    color.b = 1.0;
+    color *= darkness;
+    gl_FragColor = vec4(color.rgb, 1.0);
+  }`;
+
+  createCanvas(100, 100, WEBGL);
+  s = createFilterShader(fragSrc);
+
   
   //creates input box for image
   imgInput = createFileInput(handleFile);
@@ -40,10 +65,11 @@ function draw() {
     resizeCanvas(img.width * scaleRatio, img.height * scaleRatio * 2);
     //image(img, 0, 0, width, height);
     image(img, 0, 0, img.width  * scaleRatio, img.height  * scaleRatio);
-    //img.filter(INVERT); //this will make the code strobe
+    //img.filter(INVERT); //this will make the images strobe
     //getPrev();
-
     image(img2, 0, img.height * scaleRatio, img.width * scaleRatio, img.height * scaleRatio);
+    s.setUniform('darkness', 0.5);
+    //filter(INVERT);
   } else {
     background(255);
   }
@@ -71,7 +97,6 @@ function handleFile(file) {
   imgInput.hide();
 }
 
-//all pixels are stored in lists
 function storeImgValues() {
   img.resize(window.width / 2, 0);
   img.loadPixels();
@@ -79,8 +104,10 @@ function storeImgValues() {
 }
 
 function handleImg2() {
-  img2.loadPixels(window.width / 2, 0);
-  getPrev();
+  img2.resize(window.width / 2, 0);
+  img2.loadPixels();
+  //img2.filter(s);
+  //getPrev();
   //img2.updatePixels();
   //img2.filter(INVERT);
 }
