@@ -1,5 +1,6 @@
 let imgInput, img, img2;
 let newColor;
+let layerImg;
 //let tileSize = 20;
 let selectedColors = [];
 
@@ -10,7 +11,7 @@ let selectedColors = [];
 
 
 function setup() {
-  //createCanvas(400, 400);
+  createCanvas(400, 400, WEBGL);
   selectedColors.push(color(35, 66, 91));
   selectedColors.push(color(0, 33, 19));
   selectedColors.push(color(200, 221, 221));
@@ -22,6 +23,7 @@ function setup() {
   selectedColors.push(color(232, 222, 176));
   selectedColors.push(color(156, 88, 28));
   
+  /*
   let fragSrc = `precision highp float;
 
   // x,y coordinates, given from the vertex shader
@@ -47,7 +49,7 @@ function setup() {
   createCanvas(100, 100, WEBGL);
   s = createFilterShader(fragSrc);
 
-  
+  */
   //creates input box for image
   imgInput = createFileInput(handleFile);
   imgInput.position(20, 20);
@@ -64,12 +66,26 @@ function draw() {
 
     resizeCanvas(img.width * scaleRatio, img.height * scaleRatio * 2);
     //image(img, 0, 0, width, height);
-    image(img, 0, 0, img.width  * scaleRatio, img.height  * scaleRatio);
+
+    //image(img, 0, 0, img.width  * scaleRatio, img.height  * scaleRatio);
+
     //img.filter(INVERT); //this will make the images strobe
     //getPrev();
-    image(img2, 0, img.height * scaleRatio, img.width * scaleRatio, img.height * scaleRatio);
-    s.setUniform('darkness', 0.5);
-    //filter(INVERT);
+
+    //image(img2, 0, img.height * scaleRatio, img.width * scaleRatio, img.height * scaleRatio);
+    background(0);
+
+
+    translate(0, -img.height * scaleRatio / 2, 0);
+    plane(img.width * scaleRatio, img.height * scaleRatio);
+    texture(img);
+
+    translate(0, img.height * scaleRatio, 0);
+    plane(img.width * scaleRatio, img.height * scaleRatio);
+    texture(img2);
+
+    //s.setUniform('darkness', 0.5);
+    //filter(s);
   } else {
     background(255);
   }
@@ -100,12 +116,18 @@ function handleFile(file) {
 function storeImgValues() {
   img.resize(window.width / 2, 0);
   img.loadPixels();
+  let layer = createGraphics(200, 200);
+  layer.image(img, image.width, image.height);
+  layerImg = layer.get();
+  layer.remove();
+
   //img.filter(INVERT);
 }
 
 function handleImg2() {
   img2.resize(window.width / 2, 0);
   img2.loadPixels();
+  img2.filter(INVERT);
   //img2.filter(s);
   //getPrev();
   //img2.updatePixels();
