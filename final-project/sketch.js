@@ -188,16 +188,16 @@ function vectorLength(x, y, z) {
 }
 
 
-let red1, red2, rmean, r1, g1, b1;
+
 //Code adapted from https://stackoverflow.com/questions/6334311/whats-the-best-way-to-round-a-color-object-to-the-nearest-color-constant
 function colorDistance(c1, c2)
 {
-    red1 = red(c1);
-    red2 = red(c2);
-    rmean = (red1 + red2) >> 1;
-    r1 = red1 - red2;
-    g1 = green(c1) - green(c2);
-    b1 = blue(c1) - blue(c2);
+    let red1 = red(c1);
+    let red2 = red(c2);
+    let rmean = (red1 + red2) >> 1;
+    let r1 = red1 - red2;
+    let g1 = green(c1) - green(c2);
+    let b1 = blue(c1) - blue(c2);
     return Math.sqrt((((512+rmean)*r1*r1)>>8) + 4*g1*g1 + (((767-rmean)*b1*b1)>>8));
 }
 
