@@ -23,7 +23,7 @@ function setup() {
   selectedColors.push(color(232, 222, 176));
   selectedColors.push(color(156, 88, 28));
   
-  /*
+
   let fragSrc = `precision highp float;
 
   // x,y coordinates, given from the vertex shader
@@ -46,25 +46,33 @@ function setup() {
     gl_FragColor = vec4(color.rgb, 1.0);
   }`;
 
-  createCanvas(100, 100, WEBGL);
+  //createCanvas(100, 100, WEBGL);
   s = createFilterShader(fragSrc);
+  s.setUniform('darkness', 0.5);
 
-  */
   //creates input box for image
   imgInput = createFileInput(handleFile);
   imgInput.position(20, 20);
+  pixelDensity(1);
   //imgInput.hide();
   
   //creates the button to start the game
   
 }
 
+let isFiltered;
+isFiltered = false;
+
 function draw() {
   //if image exists, change canvas to fit and create image
   if (img) {
+    
+    
     let scaleRatio = windowWidth / img.width / 2;
-
-    resizeCanvas(img.width * scaleRatio, img.height * scaleRatio * 2);
+    
+    //img.filter(INVERT);
+    
+    resizeCanvas(img.width * scaleRatio, img.height * scaleRatio * 2); //need to resize image as well. might need to translate
     //image(img, 0, 0, width, height);
 
     //image(img, 0, 0, img.width  * scaleRatio, img.height  * scaleRatio);
@@ -74,18 +82,21 @@ function draw() {
 
     //image(img2, 0, img.height * scaleRatio, img.width * scaleRatio, img.height * scaleRatio);
     background(0);
-
-
+    
+    push();
     translate(0, -img.height * scaleRatio / 2, 0);
-    plane(img.width * scaleRatio, img.height * scaleRatio);
     texture(img);
-
-    translate(0, img.height * scaleRatio, 0);
     plane(img.width * scaleRatio, img.height * scaleRatio);
-    texture(img2);
+    pop();
 
-    //s.setUniform('darkness', 0.5);
-    //filter(s);
+    push();
+    translate(0, img.height * scaleRatio / 2, 0);
+    texture(img2);
+    plane(img.width * scaleRatio, img.height * scaleRatio);
+    pop();
+
+    
+    
   } else {
     background(255);
   }
@@ -115,11 +126,11 @@ function handleFile(file) {
 
 function storeImgValues() {
   img.resize(window.width / 2, 0);
-  img.loadPixels();
+  img.loadPixels(); /*
   let layer = createGraphics(200, 200);
   layer.image(img, image.width, image.height);
   layerImg = layer.get();
-  layer.remove();
+  layer.remove(); */
 
   //img.filter(INVERT);
 }
@@ -127,8 +138,7 @@ function storeImgValues() {
 function handleImg2() {
   img2.resize(window.width / 2, 0);
   img2.loadPixels();
-  img2.filter(INVERT);
-  //img2.filter(s);
+  img2.filter(s);
   //getPrev();
   //img2.updatePixels();
   //img2.filter(INVERT);
