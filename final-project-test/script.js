@@ -2,7 +2,8 @@ const imageInput = document.getElementById('imageInput');
 const filterButton = document.getElementById('filterButton');
 const originalImage = document.getElementById('originalImage');
 const filteredImage = document.getElementById('filteredImage');
-const addColor = document.getElementById('addColor');
+const addColorButton = document.getElementById('addColorButton');
+const paletteContainer = document.getElementById('paletteContainer');
 
 const colorPalette = [
     [0, 0, 0], // Red
@@ -106,8 +107,51 @@ function addColorToPalette(event) {
     reader.readAsDataURL(file);
   }
   
-  filterButton.addEventListener('click', applyFilter);
+filterButton.addEventListener('click', applyFilter);
 
+addColorButton.addEventListener('click', addColor);
+
+function addColor (event) {
+    palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
+}
+
+function palettePush ([r,g, b]) {
+    const entry = document.createElement('div');
+    entry.classList.add('palette-entry');
+
+    const chip = document.createElement('div')
+    chip.classList.add('color-chip');
+    chip.innerHTML = '<input type="color" id="head" name="head" value="#e66465" />';
+    entry.appendChild(chip);
+
+    const colorName = document.createElement('div');
+    colorName.classList.add('palette-entry-text');
+    colorName.innerHTML = '<p>Yeah</p>';
+    entry.appendChild(colorName);
+
+    const sqft = document.createElement('div');
+    sqft.classList.add('palette-entry-text');
+    sqft.innerHTML = '<p>Yeah</p>';
+    entry.appendChild(sqft);
+
+    const cans = document.createElement('div');
+    cans.classList.add('palette-entry-text');
+    cans.innerHTML = '<p>Yeah</p>';
+    entry.appendChild(cans);
+
+    const gallons = document.createElement('div');
+    gallons.classList.add('palette-entry-text');
+    gallons.innerHTML = '<p>Yeah</p>';
+    entry.appendChild(gallons);
+
+
+    paletteContainer.appendChild(entry);
+}
+// color, name, sqft, cans, gallons
+
+
+
+  /*
   function colorDistance(r, g, b, pr, pg, pb)
 {
     let rmean = (r + pr) >> 1;
@@ -116,3 +160,4 @@ function addColorToPalette(event) {
     let b1 = b - pb;
     return Math.sqrt((((512+rmean)*r1*r1)>>8) + 4*g1*g1 + (((767-rmean)*b1*b1)>>8));
 }
+    */
