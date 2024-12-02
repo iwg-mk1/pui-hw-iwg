@@ -4,11 +4,15 @@ const originalImage = document.getElementById('originalImage');
 const filteredImage = document.getElementById('filteredImage');
 const addColorButton = document.getElementById('addColorButton');
 const paletteContainer = document.getElementById('paletteContainer');
-const w = 0, h = 0;
+const widthField = document.getElementById('widthField');
+const heightField = document.getElementById('heightField');
+const paletteEntries = document.querySelector('.palette-entry');
+let w = 0, h = 0;
 
 const colorPalette = [
-    [0, 0, 0, null, 0]
 ];
+
+palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
 
 function addColorToPalette(event) {
 
@@ -91,6 +95,7 @@ function addColorToPalette(event) {
     };
   
     reader.readAsDataURL(file);
+    calculateColorAreas();
   }
 
   
@@ -201,15 +206,34 @@ function calculateColorAreas () {
     for(let i = 0; i < colorPalette.length; i++) {
         totalColors += colorPalette[i][4];
     }
-
-    for(let i = 0; i < paletteEntries.children.length; i++) {
-        const entry = paletteEntries.children[i];
-        entry.querySelector('.sqft').innerText = area * colorPalette[i][4] * totalColors;
+    console.log(document.getElementById('paletteContainer'));
+    for(let i = 0; i < document.getElementById('paletteContainer').children.length; i++) {
+        const entry = document.getElementById('paletteContainer').children[i];
+        console.log(entry);
+        let colorArea = area * colorPalette[i][4] / totalColors;
+        entry.querySelector('.sqft').innerText = colorArea.toFixed(1) + ' sqft';
+        entry.querySelector('.cans').innerText = (colorArea / 25).toFixed(1) + ' cans';
+        entry.querySelector('.gallons').innerText = (colorArea / 350).toFixed(1) + ' gallons';
+        console.log(area * colorPalette[i][4] * totalColors);
     }
 }
 
+widthField.addEventListener('change', (event) => {
+    
+    if(event.target.value >= 0) {
+        console.log(event.target.value);
+        w = event.target.value;
+        calculateColorAreas();
+    }
+}) 
 
+heightField.addEventListener('change', (event) => {
 
+    if(event.target.value >= 0) {
+        h = event.target.value;
+        calculateColorAreas();
+    }
+}) 
 
 
 
