@@ -10,9 +10,10 @@ const paletteEntries = document.querySelector('.palette-entry');
 let w = 0, h = 0;
 
 const colorPalette = [
+    [0, 0, 0, null, 0]
 ];
 
-palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
+//palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
 
 function addColorToPalette(event) {
 
@@ -156,7 +157,7 @@ function palettePush ([r,g, b]) {
 
     paletteContainer.appendChild(entry);
 
-    colorPalette.push([r, g, b, entry]);
+    colorPalette.push([r, g, b, entry, 0]);
     applyFilter();
 }
 // color, name, sqft, cans, gallons
