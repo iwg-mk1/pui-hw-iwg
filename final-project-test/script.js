@@ -4,22 +4,10 @@ const originalImage = document.getElementById('originalImage');
 const filteredImage = document.getElementById('filteredImage');
 const addColorButton = document.getElementById('addColorButton');
 const paletteContainer = document.getElementById('paletteContainer');
+const w = 0, h = 0;
 
 const colorPalette = [
-    [0, 0, 0], // Red
-    //[0, 255, 0], // Green
-    //[0, 0, 255], // Blue
-   // [255, 255, 0], // Yellow
-    //[255, 0, 255], // Magenta
-   // [35, 66, 9],
-    /*[0, 33, 19],
-    [200, 221, 221],
-    [100, 188, 100],
-    [64, 45, 30],
-    [134, 191, 227],
-    [227, 204, 134],
-    [58, 181, 89],
-    [156, 88, 28]*/
+    [0, 0, 0, null, 0]
 ];
 
 function addColorToPalette(event) {
@@ -41,16 +29,11 @@ function addColorToPalette(event) {
   const pixelData = resizeCtx.getImageData(x, y, 1, 1).data;
   const newColor = [pixelData[0], pixelData[1], pixelData[2]];
 
-  colorPalette.push(newColor);
-  applyFilter();
-  
-    
-    
-    //*/
+  palettePush(newColor);
 
-    
   }
   
+
   function applyFilter() {
     const file = imageInput.files[0];
     const reader = new FileReader();
@@ -71,21 +54,23 @@ function addColorToPalette(event) {
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   
         const data = imageData.data;
+        
+        //Reseting the count
+        for(let i = 0; i < colorPalette.length; i++) {
+            colorPalette[i][4] = 0
+        }
   
         for (let i = 0; i < data.length; i += 4) {
           const r = data[i];
           const g = data[i + 1];
-          const b = data[i 
-   + 2];
+          const b = data[i + 2];
   
           let minDistance = Infinity;
-          let closestColorIndex 
-   = 0;
+          let closestColorIndex = 0;
   
           for (let j = 0; j < colorPalette.length; j++) {
             const [pr, pg, pb] = colorPalette[j];
             const distance = Math.sqrt((r - pr) ** 2 + (g - pg) ** 2 + (b - pb) ** 2);
-            //const distance = colorDistance(r, g, b, pr, pb, pg)
             if (distance < minDistance) {
               minDistance = distance;
               closestColorIndex = j;
@@ -93,6 +78,7 @@ function addColorToPalette(event) {
           }
   
           const [cr, cg, cb] = colorPalette[closestColorIndex];
+          colorPalette[closestColorIndex][4] += 1; //Adding to the count
           data[i] = cr;
           data[i + 1] = cg;
           data[i + 2] = cb;
@@ -106,49 +92,147 @@ function addColorToPalette(event) {
   
     reader.readAsDataURL(file);
   }
+
   
 filterButton.addEventListener('click', applyFilter);
 
 addColorButton.addEventListener('click', addColor);
 
+
 function addColor (event) {
     palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
 }
 
+
 function palettePush ([r,g, b]) {
+
     const entry = document.createElement('div');
     entry.classList.add('palette-entry');
 
-    const chip = document.createElement('div')
-    chip.classList.add('color-chip');
-    chip.innerHTML = '<input type="color" id="head" name="head" value="#e66465" />';
-    entry.appendChild(chip);
+    let colorPicker = document.createElement('input');
+    colorPicker.type = 'color';
+    colorPicker.value = rgbToHex(r, g, b);
+    colorPicker.addEventListener("change", updateAll, false); //Change to 'change' for changing when exiting
+    colorPicker.select();
+    entry.appendChild(colorPicker);
 
-    const colorName = document.createElement('div');
+    const colorName = document.createElement('p');
+    colorName.classList.add('color-name');
     colorName.classList.add('palette-entry-text');
-    colorName.innerHTML = '<p>Yeah</p>';
+    colorName.innerText = colorPicker.value;
     entry.appendChild(colorName);
 
-    const sqft = document.createElement('div');
+    const sqft = document.createElement('p');
+    sqft.classList.add('sqft');
     sqft.classList.add('palette-entry-text');
-    sqft.innerHTML = '<p>Yeah</p>';
+    sqft.innerText = 'Yeah<';
     entry.appendChild(sqft);
 
-    const cans = document.createElement('div');
-    cans.classList.add('palette-entry-text');
-    cans.innerHTML = '<p>Yeah</p>';
+    const cans = document.createElement('p');
+    cans.classList.add('cans');
+    cans.innerText = 'Yeah';
     entry.appendChild(cans);
 
-    const gallons = document.createElement('div');
-    gallons.classList.add('palette-entry-text');
-    gallons.innerHTML = '<p>Yeah</p>';
+    const gallons = document.createElement('p');
+    gallons.classList.add('gallons');
+    gallons.innerText = 'Yeah';
     entry.appendChild(gallons);
 
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'Remove Color';
+    removeButton.classList.add('remove-button');
+    entry.appendChild(removeButton);
+    removeButton.addEventListener('click', (event) => 
+        {
+            removeColorFromPalette(entry);
+            entry.remove();
+        });
+    
 
     paletteContainer.appendChild(entry);
+
+    colorPalette.push([r, g, b, entry]);
+    applyFilter();
 }
 // color, name, sqft, cans, gallons
 
+function removeColorFromPalette(entry) {
+    for (let i = 0; i < colorPalette.length; i++) {
+        if (entry === colorPalette[i][3]) {
+            console.log(colorPalette);
+            colorPalette.splice(i, 1)
+            console.log(colorPalette);
+            applyFilter();
+            break;
+        }
+        
+    }
+}
+
+
+function updateAll(event) {
+    document.querySelectorAll("p").forEach((p) => { //temp
+      p.style.color = event.target.value;
+    });
+
+    this.parentElement.querySelector('.color-name').innerText = event.target.value;
+
+    for (let i = 0; i < colorPalette.length; i++) {
+        if (this.parentElement === colorPalette[i][3]) {
+            let newColor = hexToRgb(event.target.value);
+            console.log(colorPalette);
+            colorPalette[i][0] = newColor[0];
+            colorPalette[i][1] = newColor[1];
+            colorPalette[i][2] = newColor[2];
+            console.log(colorPalette);
+            applyFilter();
+            break;
+        }
+        
+    }
+
+}
+
+
+function calculateColorAreas () {
+
+    let area = w * h;
+    let totalColors = 0;
+    for(let i = 0; i < colorPalette.length; i++) {
+        totalColors += colorPalette[i][4];
+    }
+
+    for(let i = 0; i < paletteEntries.children.length; i++) {
+        const entry = paletteEntries.children[i];
+        entry.querySelector('.sqft').innerText = area * colorPalette[i][4] * totalColors;
+    }
+}
+
+
+
+
+
+
+function rgbToHex(r, g, b) {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function hexToRgb(hex) {
+    // Remove the # if present
+    hex = hex.replace("#", "");
+  
+    // Check if it's a 3-digit hex code
+    if (hex.length === 3) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+  
+    // Parse the hex values into decimal
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+  
+    return [r, g, b];
+}
 
 
   /*
