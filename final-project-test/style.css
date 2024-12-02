@@ -100,19 +100,44 @@ div .palette-entry {
   
   h1, h2, h3, h4, h5, h6 {
     color: var(--md-sys-color-primary);
-    font-family: var(--md-ref-typeface-plain);
+    font-family: var(--md-ref-typeface-brand);
   }
   
   p, li, label, input {
     color: var(--md-sys-color-on-surface);
   }
 
-  button {
-    background-color: var(--md-sys-color-on-surface);
-    color: var(--md-sys-color-on-primary);
-    border: none;
+  button, input, input[type=file]::file-selector-button {
+    /*background-color: var(--md-sys-color-on-surface);
+    color: var(--md-sys-color-on-primary);*/
+
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    border-style: solid;
+    border-color: var(--md-sys-color-on-surface);
+    border-radius: 10px;
+    border-width: 2px;
   }
-  
+
+  input {
+    background-color: var(--md-sys-color-on-surface-variant);
+  }
+
+  input[type=file]::file-selector-button {
+    
+  }
+
+  #paletteContainer {
+    display: flex;
+    flex-direction: column;
+    
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: 20px;
+  }
+
+  .palette-entry {
+  }
+
   @import url(https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Funnel+Display:wght@300..800&display=swap);
   
   :root {

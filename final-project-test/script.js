@@ -177,9 +177,6 @@ function removeColorFromPalette(entry) {
 
 
 function updateAll(event) {
-    document.querySelectorAll("p").forEach((p) => { //temp
-      p.style.color = event.target.value;
-    });
 
     this.parentElement.querySelector('.color-name').innerText = event.target.value;
 
