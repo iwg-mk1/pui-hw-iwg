@@ -1,5 +1,4 @@
 const imageInput = document.getElementById('imageInput');
-const filterButton = document.getElementById('filterButton');
 const originalImage = document.getElementById('originalImage');
 const filteredImage = document.getElementById('filteredImage');
 const addColorButton = document.getElementById('addColorButton');
@@ -40,6 +39,7 @@ function addColorToPalette(event) {
   
 
   function applyFilter() {
+
     const file = imageInput.files[0];
     const reader = new FileReader();
   
@@ -99,8 +99,8 @@ function addColorToPalette(event) {
     calculateColorAreas();
   }
 
-  
-filterButton.addEventListener('click', applyFilter);
+
+imageInput.addEventListener('change', applyFilter);
 
 addColorButton.addEventListener('click', addColor);
 

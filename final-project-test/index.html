@@ -8,31 +8,39 @@
     
     <title>Color Palette Filter</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <h1>Mural Budgeter</h1>
-    <input type="file" id="imageInput">
-    <button id="filterButton">Filter</button>
-
+    <div id="top">
+    <div id="top-left">
+        <h1>Mural Budgeter</h1>
+        <input type="file" id="imageInput">
+    </div>
+        <div id="dimensions">
+            <p>Add the dimensions of your surface:</p>
+            <label for="widthField">Width in ft²</label>
+            <input type="number" id="widthField" min="0">
+            <label for="heightField">Height in ft²</label>
+            <input type="number" id="heightField" min="0">
+        </div>
+    </div>
     <div id="imageContainer">
         <img id="originalImage" src="" alt="Original Image" onclick="addColorToPalette(event)">
         <img id="filteredImage" src="" alt="Filtered Image">
     </div>
 
     <button id ="addColorButton">Add Color</button>
-    <div id="paletteContainer">
+    <div id="paletteContainer"> </div>
         
-    </div>
+    
 
-    <div id="dimensions">
-        <p>Add the dimensions of your surface:</p>
-        <label for="widthField">Width in ft²</label>
-        <input type="number" id="widthField" min="0">
-        <label for="heightField">Height in ft²</label>
-        <input type="number" id="heightField" min="0">
-    </div>
+    
        
-
     <script src="script.js"></script>
+    
+    <footer> 
+        <p>Questions? Comments? Want more features? Contact me at email placeholder</p>
+    </footer>
+
 </body>
 </html>
