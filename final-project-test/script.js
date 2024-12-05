@@ -14,8 +14,10 @@ const colorPalette = [
 
 //palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
 
-function addColorToPalette(event) {
+originalImage.style.display = 'none';
+filteredImage.style.display = 'none';
 
+function addColorToPalette(event) {
     const imgRect = originalImage.getBoundingClientRect();
   //const scaleX = originalImage.width / imgRect.width;
   //const scaleY = originalImage.height / imgRect.height;
@@ -39,6 +41,9 @@ function addColorToPalette(event) {
   
 
   function applyFilter() {
+
+    originalImage.style.display = 'block';
+    filteredImage.style.display = 'block';
 
     const file = imageInput.files[0];
     const reader = new FileReader();
