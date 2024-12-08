@@ -41,9 +41,14 @@ function addColorToPalette(event) {
 
   originalImage.style.display = 'none';
   filteredImage.style.display = 'none';
+  addColorButton.style.display = 'none';
+  document.getElementById('dimensions').style.display = 'none';
 
   function applyFilter() {
 
+    document.getElementById('info-box').style.display = 'none';
+    addColorButton.style.display = 'block';
+    document.getElementById('dimensions').style.display = 'block';
     originalImage.style.display = 'block';
     filteredImage.style.display = 'block';
 
