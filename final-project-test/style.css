@@ -175,9 +175,9 @@ div .palette-entry {
     border-radius: 5px;
   }
 
-  input[type=file]::file-selector-button {
+  /*input[type=file]::file-selector-button {
     
-  }
+  }*/
 
   #paletteContainer button {
     background-color: var(--md-sys-color-tertiary-container);
