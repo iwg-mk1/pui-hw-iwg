@@ -14,8 +14,7 @@ const colorPalette = [
 
 //palettePush([Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)]);
 
-originalImage.style.display = 'none';
-filteredImage.style.display = 'none';
+
 
 function addColorToPalette(event) {
     const imgRect = originalImage.getBoundingClientRect();
@@ -40,6 +39,9 @@ function addColorToPalette(event) {
   }
   
 
+  originalImage.style.display = 'none';
+  filteredImage.style.display = 'none';
+
   function applyFilter() {
 
     originalImage.style.display = 'block';
@@ -58,8 +60,7 @@ function addColorToPalette(event) {
         const ctx = canvas.getContext('2d');
         canvas.width = img.width;
         canvas.height = img.height;
-        ctx.drawImage(img, 0, 
-   0);
+        ctx.drawImage(img, 0, 0);
   
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   
@@ -123,14 +124,16 @@ function palettePush ([r,g, b]) {
     let colorPicker = document.createElement('input');
     colorPicker.type = 'color';
     colorPicker.value = rgbToHex(r, g, b);
-    colorPicker.addEventListener("change", updateAll, false); //Change to 'change' for changing when exiting
+    colorPicker.addEventListener("change", updateColors, false); //Change to 'change' for changing when exiting
     colorPicker.select();
     entry.appendChild(colorPicker);
 
     const colorName = document.createElement('p');
     colorName.classList.add('color-name');
     colorName.classList.add('palette-entry-text');
-    colorName.innerText = colorPicker.value;
+    getColorName(colorPicker.value).then(result => {
+        colorName.innerText = result
+    });
     entry.appendChild(colorName);
 
     const sqft = document.createElement('p');
@@ -170,9 +173,7 @@ function palettePush ([r,g, b]) {
 function removeColorFromPalette(entry) {
     for (let i = 0; i < colorPalette.length; i++) {
         if (entry === colorPalette[i][3]) {
-            console.log(colorPalette);
             colorPalette.splice(i, 1)
-            console.log(colorPalette);
             applyFilter();
             break;
         }
@@ -181,18 +182,27 @@ function removeColorFromPalette(entry) {
 }
 
 
-function updateAll(event) {
+function updateColors(event) {
 
-    this.parentElement.querySelector('.color-name').innerText = event.target.value;
+    //this.parentElement.querySelector('.color-name').innerText = event.target.value;
+    //console.log(getColorName(event.target.value).then(result => {return result;}));
+    //this.parentElement.querySelector('.color-name').innerText = getColorName(event.target.value).then(result => {return result;});
 
+    getColorName(event.target.value).then(result => {
+        this.parentElement.querySelector('.color-name').innerText = result
+    });
+
+
+
+    //const c = getColorName('#FF0000').then((result) => {return result;});
+
+  //console.log(c);
     for (let i = 0; i < colorPalette.length; i++) {
         if (this.parentElement === colorPalette[i][3]) {
             let newColor = hexToRgb(event.target.value);
-            console.log(colorPalette);
             colorPalette[i][0] = newColor[0];
             colorPalette[i][1] = newColor[1];
             colorPalette[i][2] = newColor[2];
-            console.log(colorPalette);
             applyFilter();
             break;
         }
@@ -209,22 +219,22 @@ function calculateColorAreas () {
     for(let i = 0; i < colorPalette.length; i++) {
         totalColors += colorPalette[i][4];
     }
-    console.log(document.getElementById('paletteContainer'));
+    
     for(let i = 0; i < document.getElementById('paletteContainer').children.length; i++) {
         const entry = document.getElementById('paletteContainer').children[i];
-        console.log(entry);
+        
         let colorArea = area * colorPalette[i][4] / totalColors;
         entry.querySelector('.sqft').innerText = colorArea.toFixed(1) + ' sqft';
         entry.querySelector('.cans').innerText = (colorArea / 25).toFixed(1) + ' cans';
         entry.querySelector('.gallons').innerText = (colorArea / 350).toFixed(1) + ' gallons';
-        console.log(area * colorPalette[i][4] * totalColors);
+        
     }
 }
 
 widthField.addEventListener('change', (event) => {
     
     if(event.target.value >= 0) {
-        console.log(event.target.value);
+        
         w = event.target.value;
         calculateColorAreas();
     }
@@ -237,6 +247,24 @@ heightField.addEventListener('change', (event) => {
         calculateColorAreas();
     }
 }) 
+
+
+async function getColorName(hexCode) {
+    const url = 'https://api.color.pizza/v1/?values=' + hexCode.slice(1) + '&list=xkcd';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+  
+      const json = await response.json();
+      //console.log(json);
+      //console.log(json.paletteTitle)
+      return json.paletteTitle;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
 
 

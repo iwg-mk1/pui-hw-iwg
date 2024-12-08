@@ -30,7 +30,7 @@ img {
 div .palette-entry {
     display: flex;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center; 
     width: 80%;
     margin: 0 auto; 
@@ -107,6 +107,7 @@ div .palette-entry {
     color: var(--md-sys-color-primary);
     font-family: var(--md-ref-typeface-brand);
   }
+
   
   p, li, label, input {
     color: var(--md-sys-color-on-surface);
@@ -125,11 +126,29 @@ div .palette-entry {
     padding: 5px 10px;
   }
 
-  button:hover {
+  input {
+    text-align: center;
+  }
+
+  #originalImage:hover {
+    cursor: url(images/eye-dropper.png) 0 32, pointer;
+  }
+
+  button {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-style: none;
+  }
+
+  input[type=file]::file-selector-button {
+    border-style: none;
+  }
+
+  button:hover, input[type=file]::file-selector-button:hover {
     filter: brightness(120%);
   }
 
-  button:active {
+  button:active, input[type=file]::file-selector-button:active {
     filter:saturate(40%);
     filter: brightness(130%);
   }
@@ -138,6 +157,11 @@ div .palette-entry {
     background-color: var(--md-sys-color-on-surface-variant);
     padding: 0;
     color: var(--md-sys-color-background);
+  }
+
+  label {
+    margin-right: 0.2em;
+    margin-left: 0.5em;
   }
 
   input[type="color"] {
@@ -175,9 +199,6 @@ div .palette-entry {
     
     background-color: var(--md-sys-color-surface-container-high);
     border-radius: 20px;
-  }
-
-  .palette-entry {
   }
 
   #dimensions {
