@@ -144,17 +144,14 @@ function palettePush ([r,g, b]) {
     const sqft = document.createElement('p');
     sqft.classList.add('sqft');
     sqft.classList.add('palette-entry-text');
-    sqft.innerText = 'Yeah<';
     entry.appendChild(sqft);
 
     const cans = document.createElement('p');
     cans.classList.add('cans');
-    cans.innerText = 'Yeah';
     entry.appendChild(cans);
 
     const gallons = document.createElement('p');
     gallons.classList.add('gallons');
-    gallons.innerText = 'Yeah';
     entry.appendChild(gallons);
 
     const removeButton = document.createElement('button');
