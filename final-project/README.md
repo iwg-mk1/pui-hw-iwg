@@ -1,6 +1,6 @@
 # **FP4 \- Final Project Writeup**
 
-Feel free to refer to this [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/) to make your writeup more organized, and you can preview your markdown file in VSCode [Markdown editing with Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview). 
+https://iwg-mk1.github.io/pui-hw-iwg/final-project/
 
 ## Part 1: Website Description
 
