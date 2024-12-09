@@ -268,31 +268,43 @@ footer {
 
 @media screen and (max-device-width: 1000px) {
   body {
-    font-size: 3.5vw;
+    font-size: 3.8vw;
   }
-  button, input, input[type=file]::file-selector-button {
+  button, input, label, input[type=file]::file-selector-button {
     font-size: 3.5vw;
+    border-radius: 1em;
   }
   #top {
     flex-direction: column;
-    width: 90%;
+    width: 95%;
     gap: 1em;
     margin-bottom: 1em;
   }
+  #paletteContainer {
+    width: 95%;
+  }
   div .palette-entry {
-    width: 90%;
+    width: 95%;
   }
   input[type="color"] {
     width: 2em;
     height: 1.5em;
   }
+  #addColorButton {
+    margin-top: 0.6em;
+    margin-bottom: 0.1em;
+    padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 2.5%;
+  }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 540px) {
   body {
     font-size: 3.5vw;
   }
-  button, input, input[type=file]::file-selector-button {
+  button, input, label, input[type=file]::file-selector-button {
     font-size: 3.5vw;
   }
   #top {
