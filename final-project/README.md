@@ -2,100 +2,60 @@
 
 Feel free to refer to this [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/) to make your writeup more organized, and you can preview your markdown file in VSCode [Markdown editing with Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview). 
 
-
 ## Part 1: Website Description
 
 Describe your website (300 words).
 
-* What is the purpose of your website?   
-* Who is the target audience?  
-* What information do you convey with your website?   
-* How is it interesting and engaging? 
+Mural Budgeter is a tool for determining how much paint an artist needs to turn their mockup into a mural. The target audience is mural artists but after showing an earlier version of this project to School of Art professor Clayton Merrel (the one who made the floor in the Pittsburgh airport), he told me that its ability to calculate color weights could be useful for painters in general. The website conveys information about how to use it by calling out what the user needs to do with text or icons, then shows them the amount of paint they need for each color in square feet, standard sized cans of spray paint, and gallons of house paint. Having worked with several mural artists in the past and worked on several murals myself, I can say that spray paint and house paint are the industry standards. It is interesting and engaging because it updates the mural preview in real time and allows users to experiment with different color schemes.
 
 ## Part 2: User Interaction
 
 How a user would interact with your website? For each step, briefly but clearly state the interaction type & how we should reproduce it.
 
-1. Interaction type. Click on X on page Y / scroll on page X, etc.  
-2. 
+1. Click on "choose file."
+2. Select an image on your computer you want to turn into a mural.
+3. Enter dimensions for your mural in the section "Add the dimensions of your surface."
+4. Start adding colors to your palette by sampling colors from the original image by clicking on its pixels OR click the add color button.
+5. Adjust your colors by clicking on the colored squares.
+6. Remove Colors by clicking "remove color."
+7. Keep playing around with these interactions until you're happy.
 
 ## Part 3: External Tool
 
+### Screen Sizes:
+This tool works best on desktop at both large (>540px width) and small (<540px width) sizes. It will also work on mobile phones although with less color sampling accuracy. I have not been able to test it on ipads.
+
 Describe what important external tool you used (JavaScript library, Web API, animations, or other). Following the bulleted list format below, reply to each of the prompts.
 
-1. Name of tool1  
-   * Why did you choose to use it over other alternatives? (2 sentences max)  
-   * How you used it? (2 sentences max)  
-   * What does it add to your website? (2 sentences max)  
-2. Name of tool2
+1. Color Name API: https://github.com/meodai/color-name-api  
+   * This API allowed me to choose between many different color name lists which was helpful in testing to find a list which had useful names. Many of these lists were made up of names like "Mountain Wind" which are not very useful. I needed names like "bluegrey" which immediately tells the user about what kind of color it is.
+   * I fetched color names from the API which could describe the colors the user selected and displayed them with the color.
+   * Color names help improve accessibility for colorblind users who might need additional context for their color selections. I've met many colorblind artists so this feature was important for me to add.
+2. Material 3 Theme Builder: https://m3.material.io/blog/material-theme-builder
+   * I wanted to use Material for this project but after two days of unsuccessful attempts to parse their surprisingly bad documentation and finding no peers who had gotten Material to work, I decided to instead just use their theme builder which gives me some of the quick adaptability features and provided a framework for me to use for color selection.
+    * I used this tool to build my color theme for the site.
+    * The website looks more coherent than it would if I was picking new colors every time I wanted to style an element. It will also make restyling easier in the future since I plan to continue developing this project.
 
 ## Part 4: Design Iteration
 
 Describe how you iterated on your prototypes, if at all, including any changes you made to your original design while you were implementing your website and the rationale for the changes. (4-8 sentences max)
 
+I iterated quite a bit from my prototypes. Mainly, I moved to a column display which helped keep the site consistent across a greater variety of screen sizes. I changed the drag and drop to a file input because it makes the design more efficient. Finally, I simplified the style for a cleaner interface.
+
 ## Part 5: Implementation Challenge
 
 What challenges did you experience in implementing your website? (2-4 sentences max)
 
+The biggest two challenges were performance and JavaScript async bugs. I was originally using p5.js for image manipulation but that was too slow, then I tried writing the image manipulation as a shader but that led to an incredible number of bugs which led me to realize that p5.js was not the right library for my purposes. I finally rewrote it without a library which greatly increased performance. Many of the random bugs I encountered were due to confusion on handling async behavior.
+
 ## Part 6: Generative AI Use and Reflection
 
-Describe how you used Generative AI tools to create this final project (fill in the following information, write \~500 words in total).
+I did not choose to use Generative AI for this project.
 
-Document your use of all GenAI tools — ChatGPT, Copilot, Claude, Cursor, etc. using the template below. Add/Delete rows or bullet points if needed, and replace Tool1/Tool2 with the name of the tool.
+## Part 7: Appendix
 
-### Usage Experiences by Project Aspects
+![WAVE results](images/wave.png)
 
-Feel free to edit the column \_ (other?) or add more columns if there's any other aspect in your project you've used the GenAI tools for.
-
-For the following aspects of your project, edit the corresponding table cell to answer:
-- *Usage*: Whether you used / did not use this tool for the aspect. Enter [Yes/No]
-- *Productivity*: Give a rating on whether this tool makes your productivity for X aspect [1-Much Reduced, 2-Reduced, 3-Slightly Reduced, 4-Not Reduced nor Improved, 5-Slightly Improved, 6-Improved, 7-Much Improved].
-
-| Tool Name | Ratings | design | plan | write code | debug | \_ (other?) |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
-| Tool1 | Usage | Yes/No | Yes/No | Yes/No | Yes/No | Yes/No |
-| Tool1 | Productivity | 1~7 | 1~7 | 1~7 | 1~7 | 1~7 |
-| Tool2| Usage | Yes/No | Yes/No | Yes/No | Yes/No | Yes/No |
-| Tool2 | Productivity | 1~7 | 1~7 | 1~7 | 1~7 | 1~7 |
-
-
-### Usage Reflection
-
-> Impact on your design and plan 
-* It matched my expectations and plan in [FP2](#generative-ai-use-plan) in that … For example, 
-  1. Tool1: 
-  2. Tool2:
-* It did not match my expectations and plan in [FP2](#generative-ai-use-plan) in that … For example, 
-  1. Tool1: 
-  2. Tool2:
-* GenAI tool did/did not influence my final design and implementation plan because … For example, 
-  1. Tool1: 
-  2. Tool2:
-
-> Use patterns
-* I accepted the generations when …  For example, 
-  1. Tool1: this tool once suggested … and I adjusted my design according to the suggestion because … 
-  2. Tool2: 
-* I critiqued/evaluated the generated suggestions by … For example, 
-  1. Tool1: this tool once suggested … but I modified/rejected the suggestion because … 
-  2. Tool2: 
-
-
-> Pros and cons of using GenAI tools
-* Pros
-  1. Tool1: 
-  2. Tool2:
-* Cons
-  1. Tool1: 
-  2. Tool2:
-
-
-### Usage Log
-
-Document the usage logs (prompts and chat history links) for the GenAI tools you used. Some tools may not have an easy way to share usage logs, just try your best! Some instructions for different tools:
-
-1. [ChatGPT](https://help.openai.com/en/articles/7925741-chatgpt-shared-links-faq) / [Gemini](https://support.google.com/gemini/answer/13743730?hl=en&co=GENIE.Platform%3DDesktop): share the anonymous link to all of your chat histories relevant to this project
-2. [GitHub Copilot (VSCode)](https://code.visualstudio.com/docs/copilot/copilot-chat#:~:text=You%20can%20export%20all%20prompts%20and%20responses%20for%20a%20chat%20session%20in%20a%20JSON%20file%20with%20the%20Chat%3A%20Export%20Session...%20command%20(workbench.action.chat.export)%20in%20the%20Command%20Palette.): export chat histories relevant to this project.
 
 ---
 
@@ -105,7 +65,7 @@ Document the changes and progress of your project. How have you followed or chan
 
 ## Implementation Plan Updates
 
-- [ ] ...
+- [ ] Got base functionality to work but its slow. Going to rewrite it as a shader. Still on track for comnpletion but with less time for styling.
 
 ## Generative AI Use Plan Updates
 
@@ -199,13 +159,13 @@ Outline weekly milestones to plan your expected implementation progress until th
 - [x] Week 10 Nov 4 \- Nov 8:   
   - [x] FP2 due
 
-- [ ] Week 11 Nov 11 \- Nov 15:  Finalize Design, import all libraries, get skeleton of site up.
-- [ ] Week 12 Nov 18 \- Nov 22:  Get paint counting algorithm working.
-- [ ] Week 13 Nov 25 \- Nov 29:  Get initial styling and formating done.
+- [x] Week 11 Nov 11 \- Nov 15:  Finalize Design, import all libraries, get skeleton of site up.
+- [x] Week 12 Nov 18 \- Nov 22:  Get paint counting algorithm working.
+- [x] Week 13 Nov 25 \- Nov 29:  Get initial styling and formating done.
 
-  - [ ] Thanksgiving  
-- [ ] Week 14 Dec 2 \- Dec 6:  Finalize styling, fix any final bugs.
-  - [ ] FP4 due 
+  - [x] Thanksgiving  
+- [ x Week 14 Dec 2 \- Dec 6:  Finalize styling, fix any final bugs.
+  - [x] FP4 due 
 
 ### *Libraries and Other Components*
 

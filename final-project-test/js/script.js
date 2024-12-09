@@ -22,10 +22,6 @@ document.getElementById('dimensions').style.display = 'none';
 
 function addColorToPalette(event) {
     const imgRect = originalImage.getBoundingClientRect();
-    //const scaleX = originalImage.width / imgRect.width;
-    //const scaleY = originalImage.height / imgRect.height;
-
-    // Create a canvas to resize the image
     const resizeCanvas = document.createElement('canvas');
     const resizeCtx = resizeCanvas.getContext('2d');
     resizeCanvas.width = imgRect.width;
@@ -44,7 +40,7 @@ function addColorToPalette(event) {
 
 
 
-
+//Displays filtered version of the image. Also counts color weights
 function applyFilter() {
 
     document.getElementById('info-box').style.display = 'none';
@@ -107,9 +103,7 @@ function applyFilter() {
             calculateColorAreas();
         };
     };
-
     reader.readAsDataURL(file);
-
 }
 
 
@@ -184,7 +178,7 @@ function removeColorFromPalette(entry) {
     }
 }
 
-
+//Updates the color palette when the user 
 function updateColors(event) {
 
     getColorName(event.target.value).then(result => {
@@ -205,15 +199,13 @@ function updateColors(event) {
 
 }
 
-
+//Updates the displayed area values for each color
 function calculateColorAreas() {
-
     let area = w * h;
     let totalColors = 0;
     for (let i = 0; i < colorPalette.length; i++) {
         totalColors += colorPalette[i][4];
     }
-
 
     for (let i = 0; i < document.getElementById('paletteContainer').children.length; i++) {
         const entry = document.getElementById('paletteContainer').children[i];
@@ -226,8 +218,8 @@ function calculateColorAreas() {
     }
 }
 
-widthField.addEventListener('change', (event) => {
 
+widthField.addEventListener('change', (event) => {
     if (event.target.value >= 0) {
         w = event.target.value;
         calculateColorAreas();
@@ -242,6 +234,7 @@ heightField.addEventListener('change', (event) => {
 })
 
 
+//Pulls from a color list API
 async function getColorName(hexCode) {
     const url = 'https://api.color.pizza/v1/?values=' + hexCode.slice(1) + '&list=xkcd';
     try {
@@ -258,6 +251,8 @@ async function getColorName(hexCode) {
 }
 
 
+
+//Helper functions:
 
 function rgbToHex(r, g, b) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);

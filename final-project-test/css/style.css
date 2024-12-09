@@ -82,7 +82,7 @@ input {
 }
 
 #originalImage:hover {
-  cursor: url(images/eye-dropper.png) 0 32, pointer;
+  cursor: url(../images/eye-dropper.png) 0 32, pointer;
 }
 
 button {
