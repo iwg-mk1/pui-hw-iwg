@@ -180,7 +180,6 @@ input[type=number] {
 #height-and-width {
   display: flex;
   flex-direction: row;
-  padding: auto;
 }
 
 #top {
@@ -197,14 +196,11 @@ input[type=number] {
 }
 
 
-
-
-
 footer {
     margin-top: 40px;
 }
 
-@media screen and (max-device-width: 1100px) {
+@media (hover: none) {
   body {
     font-size: 4vw;
   }
