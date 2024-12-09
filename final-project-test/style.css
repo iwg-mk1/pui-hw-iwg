@@ -173,6 +173,8 @@ div .palette-entry {
 
   input[type="color"] {
     border-radius: 5px;
+    width: 2.5em;
+    height: 2.5em;
   }
 
   /*input[type=file]::file-selector-button {
@@ -262,4 +264,48 @@ div .palette-entry {
 
 footer {
     margin-top: 40px;
+}
+
+@media screen and (max-device-width: 1000px) {
+  body {
+    font-size: 3.5vw;
+  }
+  button, input, input[type=file]::file-selector-button {
+    font-size: 3.5vw;
+  }
+  #top {
+    flex-direction: column;
+    width: 90%;
+    gap: 1em;
+    margin-bottom: 1em;
+  }
+  div .palette-entry {
+    width: 90%;
+  }
+  input[type="color"] {
+    width: 2em;
+    height: 1.5em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 3.5vw;
+  }
+  button, input, input[type=file]::file-selector-button {
+    font-size: 3.5vw;
+  }
+  #top {
+    flex-direction: column;
+    width: 90%;
+    gap: 1em;
+    margin-bottom: 1em;
+  }
+  div .palette-entry {
+    width: 90%;
+  }
+  input[type="color"] {
+    width: 2em;
+    height: 1.5em;
+  }
 }
